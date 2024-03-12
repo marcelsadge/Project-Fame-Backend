@@ -45,7 +45,7 @@ router.post('/newmoe', async (req, res) => {
 router.get('/moe', async (req, res) => {
     try {
         const getMoe = await MOE.find({
-            id: req.query.id,
+            date: req.query.date,
         });
         res.status(200).json(getMoe);
     } catch(err) {
