@@ -12,7 +12,14 @@ router.post('/moe', async (req, res) => {
         return result.data;
     });
     try {
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
         const newMoe = new MOE({
+            date: "" + day + "/" + month + "/" + year,
             data: getMoe,
         });
         const saveMoe = await newMoe.save();
