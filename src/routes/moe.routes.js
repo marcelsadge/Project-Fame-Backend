@@ -3,15 +3,33 @@ const MOE = require('../models/moe.model');
 const fetch = require("node-fetch");
 
 router.post('/moe', async (req, res) => {
-    const getMoe = await fetch(`https://poliroid.me/gunmarks/api/com/vehicles/20,30,40,50,55,60,65,70,75,80,85,90,95,100`, {
-        method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((result) => {
-        console.log(result.data);
-        return result.data;
-    });
     try {
+        const getMoe = await fetch(`https://api.tomato.gg/dev/api-v2/moe/com`, {
+            method: 'GET'
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            let arr = [];
+
+            for (const val in result.data) {
+                let newUrl = {};
+                newUrl['id'] = result.data[val]["id"];
+                newUrl['name'] = result.data[val]["name"];
+                newUrl['nation'] = result.data[val]["nation"];
+                newUrl['tier'] = result.data[val]["tier"];
+                newUrl['65'] = result.data[val]["65"];
+                newUrl['85'] = result.data[val]["85"];
+                newUrl['95'] = result.data[val]["95"];
+                newUrl['100'] = result.data[val]["100"];
+                newUrl['type'] = result.data[val]["class"];
+                newUrl['icon'] = result.data[val]["image"];
+                newUrl['prem'] = result.data[val]["isPrem"];
+                arr.push(newUrl);
+            }
+
+            return arr;
+        }); 
+
         const date = new Date();
 
         let day = date.getDate();
